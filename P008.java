@@ -42,15 +42,20 @@ public class P008 {
             numbers[i] = 0;
 
         try {
-            FileReader reader = new FileReader("1000-digit");
+            Scanner sc = new Scanner(new File("1000-digit")).useDelimiter("");
             i = 0;
-            while ((c = reader.read()) != -1 && i < 1000) {
-                if (c >= '0' && c <= '9')
-                    numbers[i++] = c - '0';
+            while (sc.hasNext()) {
+                while (sc.hasNextInt())
+                    numbers[i++] = sc.nextInt();
+                sc.nextLine();
             }
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Cannot open " + "1000-digit");
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.err.println("Input size don't match");
+            numbers = null;
         }
         return numbers;
     }
